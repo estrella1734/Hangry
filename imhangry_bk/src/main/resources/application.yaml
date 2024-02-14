@@ -1,0 +1,45 @@
+spring:
+  # DataSource
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+    url: jdbc:sqlserver://localhost:1433;databaseName=hangryDB;trustServerCertificate=true
+    username: 
+    password: 
+  # Hibernate
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+
+  jackson:
+    time-zone: Asia/Taipei
+  # ViewResolver
+#   mvc:
+#     view:
+#       prefix: /WEB-INF/views
+#       suffix: .jsp
+#   # i18n
+#   messages:
+#     basename: i18n.Messages
+#     encoding: UTF-8
+#     fallback-to-system-locale: false
+
+
+#   profiles:
+#     active: '@000@'
+
+
+
+
+#相對路徑設置
+file:
+  upload:
+      path: src/main/resource/static/images
+    

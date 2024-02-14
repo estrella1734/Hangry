@@ -1,0 +1,5 @@
+package tw.com.gohome.imhangry.controller.bird;
+
+public class a {
+    
+}
