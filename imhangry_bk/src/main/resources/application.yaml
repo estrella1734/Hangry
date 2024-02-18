@@ -4,8 +4,8 @@ spring:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
     url: jdbc:sqlserver://localhost:1433;databaseName=hangryDB;trustServerCertificate=true
-    username: sa
-    password: P@ssw0rd
+    username: your_username
+    password: your_password
   # Hibernate
   jpa:
     show-sql: true
