@@ -119,7 +119,7 @@ async function convertLatLngToAddress() {
 
         console.log(lat.value, lon.value)
         const response = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat.value},${lon.value}&key=AIzaSyBDkuJCFNUhD_PlDN3Ptk-k5ZSS-0fvZug`
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat.value},${lon.value}&key=`
         );
 
         if (response.data.results.length > 0) {
