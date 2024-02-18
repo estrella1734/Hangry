@@ -54,7 +54,7 @@ function toOrderPage(id) {
     route.push({ name: 'OrderPage', params: { id: id } })
 }
 async function convertAddressToLatLng(address) {
-    const responseData = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyBDkuJCFNUhD_PlDN3Ptk-k5ZSS-0fvZug`)
+    const responseData = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=`)
     console.log(responseData.data)
     return responseData.data;
 }
