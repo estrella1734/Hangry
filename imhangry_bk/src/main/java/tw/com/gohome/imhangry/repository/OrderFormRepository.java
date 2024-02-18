@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +19,7 @@ import tw.com.gohome.imhangry.repository.declaredinterfaces.OrderFormRepositoryC
 public interface OrderFormRepository extends JpaRepository<OrderForm, Integer>, OrderFormRepositoryCustom {
 
     // Timothy/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @Query("FROM OrderForm WHERE  fkGuestId =:fkGuestId")
+    @Query("FROM OrderForm WHERE  fkGuestId =:fkGuestId ORDER BY id desc")
     List<OrderForm> findByfkGuestId(@Param("fkGuestId") Integer id);
 
     @Query("""
@@ -26,11 +27,8 @@ public interface OrderFormRepository extends JpaRepository<OrderForm, Integer>, 
             of.fkBusinessId,
             of.fkGuestId
             )
-            FROM OrderForm
-            of JOIN
-            OrderDetail od
-            on of.id=
-            od.fkOrderId WHERE od.id=:fkOrderId
+            FROM OrderForm of
+            WHERE of.id=:fkOrderId
             """)
     UserIdByDetail findUserIdFromOrderId(@Param("fkOrderId") Integer id);
 
@@ -107,14 +105,20 @@ public interface OrderFormRepository extends JpaRepository<OrderForm, Integer>, 
      * @return List<OrderManagerDTO>
      */
     @Query("""
-        select new tw.com.gohome.imhangry.domain.dto.OrderManagerDTO(OFM.id id, OFM.address AS address, OFM.paymentType AS paymentType, OD.fkProductId AS fkProductId, OD.amount AS amount, OD.price AS price, OD.image AS image, OD.name AS name)
-        from OrderForm OFM
-        join OrderDetail OD on OFM.id = OD.fkOrderId
-        where OFM.fkBusinessId = :fkBusinessId
-        """)
-        List<OrderManagerDTO> findOrderByBuId(Integer fkBusinessId);
-
-    
+            select new tw.com.gohome.imhangry.domain.dto.OrderManagerDTO(
+                OFM.id id,
+                OFM.address AS address,
+                OFM.paymentType AS paymentType,
+                OD.fkProductId AS fkProductId,
+                OD.amount AS amount,
+                OD.price AS price,
+                OD.image AS image,
+                OD.name AS name)
+            from OrderForm OFM
+            join OrderDetail OD on OFM.id = OD.fkOrderId
+            where OFM.fkBusinessId = :fkBusinessId
+            """)
+    List<OrderManagerDTO> findOrderByBuId(Integer fkBusinessId);
 
     // 以下方法未用////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -161,5 +165,18 @@ public interface OrderFormRepository extends JpaRepository<OrderForm, Integer>, 
     List<OrderFormManagementDTO> findOrderFormsByBusinessId(@Param("businessId") Integer businessId);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // yty//
+    @Modifying
+    @Query("UPDATE OrderForm o SET o.paymentStatus = 1 WHERE o.id = :id")
+    void updateStatus(@Param("id") Integer id);
+
+    @Modifying
+    @Query("UPDATE OrderForm o SET o.text = :text WHERE o.id = :id")
+    void updateText(@Param("text") String text, @Param("id") Integer id);
+
+    @Query("SELECT total FROM OrderForm WHERE id = :orderId")
+    Integer findTotalByOrderId(@Param("orderId") Integer orderId);
+
 
 }

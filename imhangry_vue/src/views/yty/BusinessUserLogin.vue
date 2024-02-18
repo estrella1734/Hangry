@@ -57,7 +57,7 @@ export default {
 
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8080/user/login',
+                        url: `${import.meta.env.VITE_API_BASE}/user/login`,
                         headers: { "Content-Type": "application/json", },
                         params: {                            
                             name: _this.ruleForm.uname,

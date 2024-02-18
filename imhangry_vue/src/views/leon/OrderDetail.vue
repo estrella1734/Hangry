@@ -1,8 +1,8 @@
 <template>
   <div style="display: flex;">
-    <div style="width: 20%; text-align: center; margin-right: 10px;"><img src="../../../orderPageImage/Hangry.jpg"
+    <div style="width: 20%; text-align: center; margin-right: 10px;"><img src="/orderPageImage/Hangry.jpg"
         style="width: 80%; margin: auto; margin-top: 20px;">
-      <div style=" margin-top: 15px;  ">好喝一號店</div>
+      <div style=" margin-top: 15px;  ">{{ orderDetail.detail[0].businessUserName }}</div>
     </div>
     <div style="width: 75%;">
       <el-table :data="orderDetail.detail" border height=auto :summary-method="getSummaries" show-summary
@@ -39,22 +39,30 @@ import axios from 'axios';
 const requstId = ref(window.location.pathname)
 const orderDetail = reactive({ detail: undefined });
 const businessName = ref("");
+const describe = ref([]);
 
 async function ordersDetail() {
+
   try {
-    const response = await axios.get('http://localhost:8080' + requstId.value);
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE}` + requstId.value);
     Object.assign(orderDetail, response.data)
     businessName.value = response.data.detail[0].businessUserName;
-    console.log(response.data);
+    console.log("123123", orderDetail.detail);
+    for (let i = 0; i < response.data.detail.length; i++) {
+      if (response.data.detail[i].describe === "") {
+        response.data.detail[i].describe = "無特殊選項"
+      }
+    }
+
 
   } catch (error) {
     console.log(error);
   }
 }
-
+ordersDetail();
 
 onMounted(() => {
-  ordersDetail();
+
 })
 
 
@@ -94,7 +102,6 @@ const getSummaries = (param) => {
 
 
 
-console.log(requstId);
 </script>
     
 <style></style>

@@ -1,7 +1,5 @@
 package tw.com.gohome.imhangry.service.yty;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
@@ -19,7 +17,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BusinessUser loginService(String name, String password) {
 
-        BusinessUser bUser = bUserRepo.findByNameAndPassword(name, password);
+        BusinessUser bUser = bUserRepo.findByEngNameAndPassword(name, password);
 
         if (bUser != null) {
             // bUser.setPassword("");
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BusinessUser registService(BusinessUser user) {
 
-        if (bUserRepo.findByName(user.getName()) != null) {
+        if (bUserRepo.findByEngName(user.getName()) != null) {
             return null;
         } else {
             BusinessUser newUser = bUserRepo.save(user);

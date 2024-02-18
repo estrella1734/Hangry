@@ -15,7 +15,7 @@
 
                 <el-form-item>
                     <el-button color="#577064" type="primary" @click="onSubmit">新增檔案</el-button>
-                    <el-button color="#577064" onclick="location.href='http://localhost:5173/PlatformCoupon'">返回</el-button>
+                    <el-button color="#577064" onclick="location.href='/PlatformCoupon'">返回</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -67,7 +67,7 @@ const onSubmit = async () => {
                 confirmButtonText: '確定',
             });
             // 導回BuMenu頁面
-            location.href = 'http://localhost:5173/BuMenu'
+            location.href = '/BuMenu'
         })
         .catch(error => {
             Swal.fire({

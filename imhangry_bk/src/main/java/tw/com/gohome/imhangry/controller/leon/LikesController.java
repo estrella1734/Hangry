@@ -1,21 +1,18 @@
 package tw.com.gohome.imhangry.controller.leon;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import tw.com.gohome.imhangry.domain.Likes;
-import tw.com.gohome.imhangry.repository.LikesRepository;
-import tw.com.gohome.imhangry.service.leon.LikesService;
-
-import java.util.List;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import tw.com.gohome.imhangry.domain.Likes;
+import tw.com.gohome.imhangry.repository.LikesRepository;
+import tw.com.gohome.imhangry.service.leon.LikesService;
 
 @RestController
 @RequestMapping("/")

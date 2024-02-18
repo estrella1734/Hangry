@@ -1,7 +1,5 @@
 package tw.com.gohome.imhangry.service.yty;
 
-import java.util.Optional;
-
 import tw.com.gohome.imhangry.domain.BusinessUser;
 
 public interface UserService {

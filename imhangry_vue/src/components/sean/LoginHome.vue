@@ -12,11 +12,13 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { getCookieData } from '../sean/util/Gettes'
 import router from '@/router/router';
+import { getCookieData } from '../sean/util/Gettes'
+
 
 const userData = getCookieData('userData');
 const id = userData?.id;
+console.log('id', id)
 const name = ref('')
 
 // const image = ref('')

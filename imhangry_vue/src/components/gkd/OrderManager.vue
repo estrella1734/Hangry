@@ -1,70 +1,72 @@
 <template>
+    <div class="outsideContainer">
+        <div class="orderManagerContainer">
 
-    
-    <div class="orderManagerContainer">
+            <div>
+                <h3>訂單檢視</h3>
+            </div>
 
-        <div>
-            <h3>訂單管理系統</h3>
-        </div>
+            <div class="accordion-wrap">
+                <a class="accordion" data-bs-toggle="collapse" :data-bs-target="'#collapse' + item.id" role="button"
+                    aria-expanded="false" v-for="item in Object.values(order)" :key="item.id">
 
-        <div class="accordion-wrap">
-            <a class="accordion" data-bs-toggle="collapse" :data-bs-target="'#collapse' + item.id" role="button"
-                aria-expanded="false" v-for="item in Object.values(order)" :key="item.id">
+                    <!-- 顯示內容 -->
+                    <div class="teaser">
 
-                <!-- 顯示內容 -->
-                <div class="teaser">
+                        <div class="time">
+                            <h5>訂單#{{ item.id }}</h5>
+                        </div>
 
-                    <div class="time">
-                        <h5>訂單#{{ item.id }}</h5>
+                        <div class="title">
+                            <h5>地址：{{ item.address }}</h5>
+                            <h6 class="theme">付款方式：{{ item.paymentType }}</h6>
+                            <h6 class="theme">總額：{{ item.total }}</h6>
+                        </div>
+
+
+                    </div>
+                    <!-- 顯示內容 -->
+
+                    <!-- 折疊的內容 -->
+                    <div class="collapse" :id="'collapse' + item.id">
+                        <div class="content">
+                            <table class="productContent">
+
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%; height:40px;padding: 10px;">品名</th>
+                                        <th style="width: 10%;">商品ID</th>
+                                        <th style="width: 10%;">數量</th>
+                                        <th style="width: 10%;">價格</th>
+                                        <th style="width: 10%;">金額</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody v-for="productList in item.products">
+                                    <tr>
+                                        <td style="width: 10%; height:40px;padding: 10px;">{{ productList.name }}</td>
+                                        <td style="width: 10%;">#{{ productList.fkProductId }}</td>
+                                        <td style="width: 10%;">{{ productList.amount }}</td>
+                                        <td style="width: 10%;">{{ productList.price }}</td>
+                                        <td style="width: 10%;">{{ productList.amount * productList.price }}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
                     </div>
 
-                    <div class="title">
-                        <h5>地址：{{ item.address }}</h5>
-                        <h6 class="theme">付款方式：{{ item.paymentType }}</h6>
-                        <h6 class="theme">總額：{{item.total}}</h6>
+                    <!-- 展開與收起 -->
+                    <div class="accordion-toggle" style="background-color: #dfdfdf;">
+                        <span class="one"></span>
+                        <span class="two"></span>
                     </div>
+                    <!-- 展開與收起 -->
 
 
-                </div>
-                <!-- 顯示內容 -->
-
-                <!-- 折疊的內容 -->
-                <div class="collapse" :id="'collapse' + item.id">
-                    <div class="content">
-                        <table class="productContent">
-
-                            <thead>
-                                <tr>
-                                    <th>品名</th>
-                                    <th>商品ID</th>
-                                    <th>數量</th>
-                                    <th>價格</th>
-                                </tr>
-                            </thead>
-
-                            <tbody v-for="productList in item.products">
-                                <tr>
-                                    <td style="width: 10%; height:40px;">{{ productList.name }}</td>
-                                    <td style="width: 10%;">{{ productList.fkProductId }}</td>
-                                    <td style="width: 10%;">{{ productList.amount }}</td>
-                                    <td style="width: 10%;">{{ productList.price }}</td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-
-                <!-- 展開與收起 -->
-                <div class="accordion-toggle" style="background-color: #33808B;">
-                    <span class="one"></span>
-                    <span class="two"></span>
-                </div>
-                <!-- 展開與收起 -->
-
-
-                <!-- 折疊的內容 -->
-            </a>
+                    <!-- 折疊的內容 -->
+                </a>
+            </div>
         </div>
     </div>
 </template>
@@ -81,30 +83,27 @@ const user = JSON.parse(userString);
 const buId = user.id;
 
 const fetchData = async () => {
-    const response = await axios.get('http://localhost:8080/pages/rest/orderform/orderManager/' + buId);
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE}/pages/rest/orderform/orderManager/` + buId);
 
 
     var data = response.data;
 
     //轉換支付方式從英文到中文
     var convertMap = {
-        'cash':'現金',
-        'ec pay':'綠界支付',
-        'cash on delivery':'貨到付款',
-        'credit card':'信用卡',
+        'cash': '現金',
+        'ec pay': '綠界支付',
+        'cash on delivery': '貨到付款',
+        'credit card': '信用卡',
     }
 
-    data.forEach(function(item){
-        if(item.paymentType in convertMap){
+    data.forEach(function (item) {
+        if (item.paymentType in convertMap) {
             item.paymentType = convertMap[item.paymentType];
         }
-        item.total = item.products.reduce((acc,item)=>{
+        item.total = item.products.reduce((acc, item) => {
             return acc + (item.amount * item.price)
-        },0)
+        }, 0)
     })
-    console.log(data);
-
-
 
     Object.assign(order, response.data);
 }
@@ -122,7 +121,7 @@ onMounted(fetchData);
 
 h3 {
     font-size: 34px;
-    color: #fff;
+    color: #000000;
 }
 
 h5 {
@@ -133,20 +132,20 @@ h6 {
     font-size: 16px;
 }
 
+.outsideContainer {
+    margin-top: 2%;
+    border-radius: 1.5rem;
+    background-color: #33808B;
+    padding: 1%;
+}
+
 .orderManagerContainer {
-    margin-top: 5%;
     padding: 30px;
     border-radius: 1rem;
 
 
     /* 半透明白色背景 */
-    background: rgba(255, 255, 255, 0.1);
-    /* 模糊效果 */
-    backdrop-filter: blur(30px);
-    /* 邊框和其他裝飾性樣式 */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding-top: 0.8%;
+    background: #efefef;
 }
 
 .accordion-wrap {
@@ -155,7 +154,7 @@ h6 {
     flex-direction: column;
 
     a {
-        color: #fff;
+        color: #000000;
         text-decoration: none;
 
         &:hover {
@@ -165,10 +164,10 @@ h6 {
 
     .accordion {
         position: relative;
-        border-top: 1px solid #fff;
+        border-top: 1px solid #000000;
 
         &:last-child {
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #000000;
         }
 
         .teaser {
@@ -182,7 +181,7 @@ h6 {
             position: relative;
 
             &:last-child {
-                border-bottom: 1px solid #fff;
+                border-bottom: 1px solid #000000;
             }
 
             .time {
@@ -225,7 +224,7 @@ h6 {
 
 
             span {
-                background-color: #fff;
+                background-color: #000000;
                 transition: 0.3s ease;
 
                 &.one {

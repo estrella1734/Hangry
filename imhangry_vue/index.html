@@ -2,14 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hangry</title>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hangry</title>
 </head>
+
 <div id="app" class="container">
-
-
 
 
 
@@ -17,20 +16,9 @@
 </div>
 <script type="module" src="/src/main.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDkuJCFNUhD_PlDN3Ptk-k5ZSS-0fvZug"></script>
-<script>
-    var lat, lon;
-
-    navigator.geolocation.getCurrentPosition(getPosition, error);
-    function getPosition(position) {
-        lat = position.coords.latitude;
-        lon = position.coords.longitude;
-        console.log(lat, lon)
-        document.cookie = `lat=${lat}`
-        document.cookie = `lon=${lon}`
-    }
-    function error(error) {
-        console.log(error)
-    }
+<script type="module">
+  import { getLocation } from './src/views/leon/GetGeolocation.js'
+  window.onload = getLocation(); 
 </script>
 
 </html>

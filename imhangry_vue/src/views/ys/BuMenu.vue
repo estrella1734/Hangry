@@ -1,63 +1,63 @@
 <template>
     <!-- <body> -->
-        <br>
-        <h2>商品列表</h2>
-        <div class="container">
-            <a href="javascript: void(0)" class="btn" onclick="location.href='http://localhost:5173/MenuUpload'">
-                <span>新增商品</span>
-                <svg width="13px" height="10px" viewBox="0 0 13 10">
-                    <path d="M1,5 L11,5"></path>
-                    <polyline points="8 1 12 5 8 9"></polyline>
-                </svg>
-            </a>
-            <a href="javascript: void(0)" class="btn" onclick="location.href='http://localhost:5173/MenuUploadFile'">
-                <span>新增商品(檔案上傳)</span>
-                <svg width="13px" height="10px" viewBox="0 0 13 10">
-                    <path d="M1,5 L11,5"></path>
-                    <polyline points="8 1 12 5 8 9"></polyline>
-                </svg>
-            </a>
-        </div>
-        <br>
-        <div class="page-content page-container" id="page-content">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title"></h4>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>品項</th>
-                                <th>品項(英)</th>
-                                <th>價格</th>
-                                <th>狀態</th>
-                                <th>描述</th>
-                                <th>圖片</th>
-                                <th>修改</th>
-                                <th>刪除</th>
-                            </tr>
-                        </thead>
-                        <tbody v-for="item in Object.values(product)">
-                            <tr>
-                                <td>{{ item.name }}</td>
-                                <td>{{ item.engName }}</td>
-                                <td>{{ item.price }}</td>
-                                <td>{{ item.status }}</td>
-                                <td>{{ item.description }}</td>
-                                <td>
-                                    <img :src="getImageUrl(item.image)" alt="Product Image"
-                                        style="max-width: 100px; max-height: 100px;" />
-                                </td>
-                                <td>
-                                    <router-link :to="{ name: 'MenuUpdate', params: { id: item.id } }"><el-button
-                                            color="#577064">修改</el-button></router-link>
-                                </td>
-                                <td><el-button color="#577064" type="primary" @click="remove(item.id)">刪除</el-button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <br>
+    <h2>商品列表</h2>
+    <div class="container">
+        <a href="javascript: void(0)" class="btn" onclick="location.href='/MenuUpload'">
+            <span>新增商品</span>
+            <svg width="13px" height="10px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+        </a>
+        <a href="javascript: void(0)" class="btn" onclick="location.href='/MenuUploadFile'">
+            <span>新增商品(檔案上傳)</span>
+            <svg width="13px" height="10px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+        </a>
+    </div>
+    <br>
+    <div class="page-content page-container" id="page-content">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"></h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>品項</th>
+                            <th>品項(英)</th>
+                            <th>價格</th>
+                            <th>狀態</th>
+                            <th>描述</th>
+                            <th>圖片</th>
+                            <th>修改</th>
+                            <th>刪除</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="item in Object.values(product)">
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.engName }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>
+                                <img :src="getImageUrl(item.image)" alt="Product Image"
+                                    style="max-width: 100px; max-height: 100px;" />
+                            </td>
+                            <td>
+                                <router-link :to="{ name: 'MenuUpdate', params: { id: item.id } }"><el-button
+                                        color="#577064">修改</el-button></router-link>
+                            </td>
+                            <td><el-button color="#577064" type="primary" @click="remove(item.id)">刪除</el-button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
     <!-- </body> -->
 </template>
 

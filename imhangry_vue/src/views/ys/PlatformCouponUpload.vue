@@ -11,7 +11,8 @@
                 <el-input v-model="form.title" />
             </el-form-item>
             <el-form-item label="優惠券折扣">
-                <el-input-number v-model="form.discount" :min="1" :max="100" @change="handleChange" />&nbsp%&nbsp(例如:9折請填90)
+                <el-input-number v-model="form.discount" :min="1" :max="100"
+                    @change="handleChange" />&nbsp%&nbsp(例如:折扣10%請填10)
             </el-form-item>
             <el-form-item label="抵用門檻">
                 <el-input-number v-model="form.threshold" :min="0" :max="10000"
@@ -48,7 +49,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button color="#577064" type="primary" @click="onSubmit">新增優惠券</el-button>
-                <el-button color="#577064" onclick="location.href='http://localhost:5173/PlatformCoupon'">返回</el-button>
+                <el-button color="#577064" onclick="location.href='/PlatformCoupon'">返回</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -61,7 +62,7 @@ import Swal from 'sweetalert2';
 
 const form = reactive({
     title: '活動特惠',
-    discount: '90',
+    discount: '10',
     threshold: '100',
     amount: '100',
     startDate: '',
@@ -94,7 +95,7 @@ const onSubmit = async () => {
                     confirmButtonText: '確定',
                 });
                 // 導回BuMenu頁面
-                location.href = 'http://localhost:5173/PlatformCoupon'
+                location.href = '/PlatformCoupon'
             } else {
                 Swal.fire({
                     icon: "error",

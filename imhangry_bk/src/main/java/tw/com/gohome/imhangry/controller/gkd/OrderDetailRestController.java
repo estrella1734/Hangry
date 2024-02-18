@@ -15,7 +15,7 @@ import tw.com.gohome.imhangry.service.gkd.OrderDetailAjaxService;
 
 @RestController
 @RequestMapping("/pages/rest")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin
 public class OrderDetailRestController {
 
     @Autowired

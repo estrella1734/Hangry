@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
 import tw.com.gohome.imhangry.domain.BusinessUser;
 import tw.com.gohome.imhangry.service.gkd.BusinessUserAjaxService;
 
@@ -44,7 +45,10 @@ public class BusinessUserRestController {
     }
 
     @GetMapping("/businessUser/findAllBusiness")
-    public ResponseEntity<?> findAllBusiness(){
+    public ResponseEntity<?> findAllBusiness(HttpServletRequest request){
+        String origin =request.getHeader("Origin");
+        System.err.println(origin);
+
         
         String beans = businessUserAjaxService.findAll();
         return ResponseEntity.ok().body(beans.toString());

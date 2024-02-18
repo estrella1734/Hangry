@@ -24,14 +24,12 @@ const props = defineProps({
 })
 
 
+
 function getcookie() {
     const cookieData = ref();
     cookieData.value = get('userData')
-    // console.log(cookieData.value)
     cookieData.value = window.atob(cookieData.value)
-    // console.log(cookieData.value)
     guestUserId.value = JSON.parse(cookieData.value).id
-    // console.log(guestUserId.value);
     busUserId.value = route.params.id
     if (busUserId.value == null) {
         busUserId.value = props.fk_business_id
@@ -48,12 +46,12 @@ async function liked() {
     } else {
         likes.value = true
     }
-    const response = await axios.post('http://localhost:8080/likes', data.value);
+    const response = await axios.post(`${import.meta.env.VITE_API_BASE}/likes`, data.value);
     // console.log(response);
 
 };
 async function likeExist() {
-    const response = await axios.post('http://localhost:8080/likesExist', data.value);
+    const response = await axios.post(`${import.meta.env.VITE_API_BASE}/likesExist`, data.value);
     console.log(response)
     likes.value = response.data;
     // console.log(likes.value)

@@ -83,7 +83,8 @@
                         </button>
                         <br>
                         <button class="btn btn-warning btn-lg" @click="downloadOrderData"
-                            style="font-size: 20px; padding: 10px 20px; color: white; background-color: #33808B;" :disabled="!switch4">
+                            style="font-size: 20px; padding: 10px 20px; color: white; background-color: #33808B;"
+                            :disabled="!switch4">
                             歷史訂單 <font-awesome-icon :icon="['far', 'rectangle-list']" />
                         </button>
                     </div>
@@ -143,8 +144,8 @@ const fetchData = async () => {
         startDate: startDate.value,
         endDate: endDate.value,
     }
-    const reportResponse = await axios.post("http://localhost:8080/pages/rest/product/productQuickView", requestBody)
-    const orderResponse = await axios.post("http://localhost:8080/pages/rest/product/findProductByBuIdAndDate", requestBody)
+    const reportResponse = await axios.post(`${import.meta.env.VITE_API_BASE}/pages/rest/product/productQuickView`, requestBody)
+    const orderResponse = await axios.post(`${import.meta.env.VITE_API_BASE}/pages/rest/product/findProductByBuIdAndDate`, requestBody)
 
     reportData.value = reportResponse.data;
     orderData.value = orderResponse.data;
@@ -157,7 +158,7 @@ const downloadReportData = async () => {
         startDate: startDate.value,
         endDate: endDate.value,
     }
-    const reportResponse = await axios.post("http://localhost:8080/pages/rest/product/productQuickView", requestBody)
+    const reportResponse = await axios.post(`${import.meta.env.VITE_API_BASE}/pages/rest/product/productQuickView`, requestBody)
 
     reportData.value = reportResponse.data;
 
@@ -219,7 +220,7 @@ const downloadOrderData = async () => {
         startDate: startDate.value,
         endDate: endDate.value,
     }
-    const reportResponse = await axios.post("http://localhost:8080/pages/rest/product/findProductByBuIdAndDate", requestBody)
+    const reportResponse = await axios.post(`${import.meta.env.VITE_API_BASE}/pages/rest/product/findProductByBuIdAndDate`, requestBody)
 
     reportData.value = reportResponse.data;
     try {
@@ -389,5 +390,4 @@ p {
     margin-left: 10px;
     /* 或者您可以根據需要調整數值 */
 }
-
 </style>

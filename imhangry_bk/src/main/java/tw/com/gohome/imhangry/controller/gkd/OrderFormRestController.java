@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tw.com.gohome.imhangry.service.gkd.OrderFormAjaxService;
 import tw.com.gohome.imhangry.util.DatetimeConverter;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/pages/rest")
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class OrderFormRestController {
 
     @Autowired
-    private OrderFormAjaxService orderFormAjaxService;
+    OrderFormAjaxService orderFormAjaxService;
 
     // 找出當日營業額的service，呼叫findTodayTotalFromOrderForm方法回傳一組內容類似[xxxx,xxxx,xxxx,xxxx]的陣列
     // requestBody會傳入一組有start、endDate的JSON，確認好內部有值就呼叫service
@@ -52,7 +51,6 @@ public class OrderFormRestController {
         }
     }
 
-    // TODO放入buid
     // 找出付款狀況的service，呼叫findTodayPSFromOrderForm方法回傳一組內容類似[0,1,1,0]的陣列
     // requestBody會傳入一組有start、endDate的JSON，確認好內部有值就呼叫service
     @PostMapping("/orderform/findTodayPSFromOrderForm")

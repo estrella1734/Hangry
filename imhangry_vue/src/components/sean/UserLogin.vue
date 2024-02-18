@@ -10,6 +10,18 @@
             <label for="password" class="form-label">密碼</label>
             <input v-model="password" type="password" class="form-control" id="password" required>
         </div>
+
+        <div class="d-sm-flex align-items-center py-3">
+            <h3 class="h6 font-weight-semibold opacity-70 mb-3 mb-sm-2 mr-sm-3">快速登入</h3>
+            <div>
+                <a class="btn btn-outline-danger me-2 mb-2" href="#" data-toggle="tooltip" title="Sign in with google"
+                    style="margin-left: 30px;" @click="gotoGoogleLoginPage">
+                    <i class="bi bi-google"></i>
+                </a>
+            </div>
+        </div>
+
+
         <button type="submit" class="btn btn-primary">登入</button>
     </form>
 </template>
@@ -20,6 +32,24 @@ import axios from 'axios';
 import router from '@/router/router';
 import Swal from 'sweetalert2';
 import { getCookieData } from "../sean/util/Gettes"
+function gotoGoogleLoginPage() {
+    window.location.href = "http://localhost:8080/google-login"
+    Swal.fire({
+        title: '登入成功',
+        text: '導入個人頁面',
+        icon: 'success',
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        timer: 1500,
+        didClose: () => {
+            router.push({ name: "LoginHome", params: { id: userData.id } });
+        }
+    });
+}
+
+
+
+
 onMounted(() => {
     const userData = getCookieData("userData");
     if (userData && userData.id) {

@@ -19,11 +19,9 @@
             </el-form-item>
             <el-form-item label="商品分類">
                 <el-select v-model="form.fkCategoryId" placeholder="請選擇分類 ">
-                    <el-option label="Main Course" value="1" />
-                    <el-option label="Drink" value="2" />
-                    <el-option label="Dessert" value="3" />
-                    <el-option label="Salad" value="4" />
-                    <el-option label="Hot Pot" value="5" />
+                    <el-option label="QQ珍珠" value="1" />
+                    <el-option label="花花草草" value="2" />
+                    <el-option label="健康水果" value="3" />
                 </el-select>
             </el-form-item>
             <el-form-item label="商品狀態">
@@ -71,8 +69,8 @@
                 </el-dialog>
             </el-form-item>
             <el-form-item>
-                <el-button color="#577064" type="primary" @click="onSubmit">新增</el-button>
-                <el-button color="#577064" onclick="location.href='http://localhost:5173/BuMenu'">返回</el-button>
+                <el-button color="#577064" type="primary" @click="onSubmit">修改</el-button>
+                <el-button color="#577064" onclick="location.href='/BuMenu'">返回</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -80,14 +78,13 @@
 
 <script lang="ts" setup>
 
-import { reactive, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { Delete, Download, Plus, ZoomIn } from '@element-plus/icons-vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { ref } from 'vue'
-import { Delete, Download, Plus, ZoomIn } from '@element-plus/icons-vue'
+import { onMounted, reactive, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
-import type { UploadFile } from 'element-plus'
+import type { UploadFile } from 'element-plus';
 const route = useRoute();
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
@@ -233,7 +230,7 @@ const onSubmit = async () => {
                 confirmButtonText: '確定',
             });
             // 導回BuMenu頁面
-            location.href = 'http://localhost:5173/BuMenu'
+            location.href = '/BuMenu'
         } else {
             Swal.fire({
                 icon: "error",

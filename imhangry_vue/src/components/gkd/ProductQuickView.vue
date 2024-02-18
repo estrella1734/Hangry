@@ -48,11 +48,11 @@ const fetchData = async () => {
 
     const requestBody = {
         buId: buId,
-        startDate: '2024-01-01',
+        startDate: '2023-07-01',
         endDate: '2024-02-28',
     }
     //TODO改成env呼叫
-    const response = await axios.post('http://localhost:8080/pages/rest/product/productQuickView', requestBody)
+    const response = await axios.post(`${import.meta.env.VITE_API_BASE}/pages/rest/product/productQuickView`, requestBody)
 
     Object.assign(order, response.data);
 }

@@ -6,10 +6,10 @@
                 <p style="font-size: 32px; font-family: 'Honk', system-ui; ">查無資料</p>
             </div>
         </div>
-        <div class="col" v-for="{ address, businessUserName, icon, id, rate, openTime } in likesDetail.list" v-else>
+        <div class="col" v-for="{ address, businessUserName, icon, id, rate, openTime, index } in likesDetail.list" v-else>
             <div class="card h-100" style="border: none; text-align: center;" @click="toOrderPage(id)">
 
-                <img src="../../../orderPageImage/Hangry.jpg" class="card-img" alt=" " style="width: 100%; margin: auto;">
+                <img src="/orderPageImage/Hangry.jpg" class="card-img" alt=" " style="width: 100%; margin: auto;">
                 <LikeComponent style="position: absolute; top: 0; right: 0;" class="fonticon" :fk_business_id="id">
                 </LikeComponent>
                 <div class="card-body">
@@ -19,7 +19,7 @@
 
                     <div class="spdiv">
                         <span class="spaninfo">{{ openTime }}</span>
-                        <span class="spaninfo">約 {{ id * 0.85 }} km</span>
+                        <span class="spaninfo" v-if="position">約 {{ distance[index] }} km</span>
                         <span class="spaninfo"><font-awesome-icon :icon="['fas', 'star']" style="color: #FFD43B;" /> {{
                             rate }}</span>
                     </div>
@@ -39,48 +39,84 @@ import { ref, reactive, onMounted } from 'vue'
 import { get } from 'vue-cookies'
 import { useRouter } from 'vue-router';
 import LikeComponent from '@/components/leon/LikeComponent.vue';
+import Swal from 'sweetalert2';
+import { getLocation } from './GetGeolocation';
+import { convertLatLngToAddress, calDistance, convertAddressToLatLng, getNearbyBusiness } from './GetDistance';
+// import { distance } from './GetDistance.js'
+
 const likesDetail = reactive({});
 const cookieData = ref();
 const guestUserId = ref();
 const likeExist = ref(true);
+const lat = ref(window.sessionStorage.getItem("lat"));
+const lon = ref(window.sessionStorage.getItem("lon"));
+const distance = reactive([]);
+const businessPosition = reactive([{}]);
+const position = ref(true)
+getLocation().then(bool => position.value = bool).catch(bool => position.value = bool);
 
 
-const route = useRouter();
+
+const router = useRouter();
 
 function toOrderPage(id) {
-    route.push({ name: 'OrderPage', params: { id: id } })
+    router.push({ name: 'OrderPage', params: { id: id } })
 }
 async function allLikes() {
-    const response = await axios.get(`http://localhost:8080/likesPage/${guestUserId.value}`)
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE}/likesPage/${guestUserId.value}`)
     Object.assign(likesDetail, response.data)
-    console.log(likesDetail.list.length)
-    if (likesDetail.list.length > 0)
+    console.log(likesDetail.list)
+    if (likesDetail.list.length > 0) {
+        console.log(likesDetail.list.length)
         likeExist.value = false;
+        for (let index = 0; index < likesDetail.list.length; index++) {
+            const addressToLocation = await convertAddressToLatLng(likesDetail.list[index].city + likesDetail.list[index].dist + likesDetail.list[index].address)
+            if (addressToLocation != null) {
+                businessPosition[index] = addressToLocation.results[0].geometry.location
+                distance[index] = calDistance(lat.value, lon.value, businessPosition[index].lat, businessPosition[index].lng)
+                console.log(distance[index])
+            }
+        }
+
+    }
 }
 
 
+
+
+
+
+
+//取得使用者登入資訊
 function getcookie() {
     cookieData.value = get('userData')
     console.log(cookieData.value)
-    cookieData.value = window.atob(cookieData.value)
-    console.log(cookieData.value)
-    guestUserId.value = JSON.parse(cookieData.value).id
-    console.log(guestUserId.value);
+    if (cookieData.value == null) {
+        Swal.fire({
+            icon: "question",
+            title: "請先登入！",
+            allowOutsideClick: false,
+            confirmButtonText: '前往登入頁面'
+        }).then(() => {
+            router.push({ name: 'UserLogin' })
+        });
+    } else {
+        cookieData.value = window.atob(cookieData.value)
+        console.log(cookieData.value)
+        guestUserId.value = JSON.parse(cookieData.value).id
+        console.log(guestUserId.value);
+    }
 }
 
 getcookie();
+
 allLikes();
 
 
 
 
-
-
-
-
-
 </script >
-    
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
 

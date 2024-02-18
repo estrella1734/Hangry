@@ -33,9 +33,9 @@ public interface BusinessUserRepository extends JpaRepository<BusinessUser, Inte
     @Query("SELECT businessType FROM BusinessUser GROUP BY businessType")
     List findAllType();
 
-    BusinessUser findByName(String name);
+    BusinessUser findByEngName(String name);
 
-    BusinessUser findByNameAndPassword(String name, String password);
+    BusinessUser findByEngNameAndPassword(String name, String password);
 
     Optional<BusinessUser> findById(Integer id);
 

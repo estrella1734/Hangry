@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import tw.com.gohome.imhangry.domain.BusinessUser;
 import tw.com.gohome.imhangry.domain.Likes;
 import tw.com.gohome.imhangry.repository.BusinessUserRepository;

@@ -64,21 +64,31 @@ public class OrdersController {
         JSONArray detailArray = new JSONArray();
         JSONObject responseJson = new JSONObject();
         List<OrderDetail> detailByOrderId = ordersService.findDetailByOrderId(orderId);
-        System.err.println();
 
         Optional<BusinessUser> business = businessUserRepository
                 .findById(orderFormRepository.findUserIdFromOrderId(orderId).getFkBusinessId());
         BusinessUser businessUser = business.get();
+        System.err.println("bus = " + orderFormRepository.findUserIdFromOrderId(orderId));
 
         if (detailByOrderId != null && !detailByOrderId.isEmpty()) {
             for (OrderDetail orderDetail : detailByOrderId) {
-                String describe[] = orderDetail.getDescribe().split(":");
+                String describe[];
                 String responseDescribe = "";
-                for (int x = 1; x < describe.length; x += 2) {
-                    responseDescribe += " " + describe[x] + " /";
-                }
-                responseDescribe = responseDescribe.substring(0, responseDescribe.length() - 1);
+                System.err.println("des = " + orderDetail.getDescribe());
+                if (orderDetail.getDescribe() != "" && !orderDetail.getDescribe().isEmpty()) {
+                    describe = orderDetail.getDescribe().split(":");
+                    if (describe.length > 1) {
+                        for (int x = 1; x < describe.length; x += 2) {
+                            responseDescribe += " " + describe[x] + " ,";
+                        }
+                        System.err.println("abc123 = " + responseDescribe);
+                        responseDescribe = responseDescribe.replaceFirst(".$", "");
+                    }
+                } else {
+                    System.err.println("abc = " + responseDescribe);
+                    responseDescribe = "";
 
+                }
                 JSONObject detail = new JSONObject()
                         .put("id", orderDetail.getId())
                         .put("price", orderDetail.getPrice())

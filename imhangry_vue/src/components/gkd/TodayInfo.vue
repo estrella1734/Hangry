@@ -5,14 +5,17 @@
 
             <form>
 
-                <h2>這裡放大頭貼</h2>
+                <span class="buIconContainer">
+                    <img :src="'/buIconImage/'+ buIcon">
+                    
+                </span>
                 <p>
                     加入日期
-                <h2>xxx</h2>
+                <h2>{{ buJoinDate }}</h2>
                 </p>
                 <p>
                     商家評分
-                <h2>xxx</h2>
+                <h2><font-awesome-icon :icon="['far', 'star']" />{{ buRate }}</h2>
                 </p>
             </form>
 
@@ -69,10 +72,7 @@
 
                     <h3>{{ buName }}</h3>
 
-                    <button class="btn btn-warning btn-lg" @click="handleButtonClick"
-                        style="font-size: 14px; padding: 10px 20px; color: white; background-color: #33808B;">
-                        修改個人資訊<font-awesome-icon :icon="['far', 'pen-to-square']" />
-                    </button>
+                    <br>
 
                     <button class="hidden" @click="toggleActive">帳戶設定</button>
 
@@ -89,6 +89,10 @@
 const userString = sessionStorage.getItem('userInfo');
 const user = JSON.parse(userString);
 const buId = user.id;
+const buIcon = ref();
+const buJoinDate = ref();
+const buRate = ref();
+
 const buName = ref(user.name);
 //本日訂單總額
 const sum = ref(0);
@@ -126,9 +130,10 @@ const handleButtonClick = async () => {
     setTimeout(async () => {
         try {
             // 發送請求並等待響應
-            const response = await axios.get("http://localhost:8080/pages/rest/businessUser/findInformation/" + buId);
+            const response = await axios.get(`${import.meta.env.VITE_API_BASE}/pages/rest/businessUser/findInformation/` + buId);
 
             const userData = response.data;
+            console.log(userData);
 
             // 使用獲得的資料構建Swal的內容
             Swal.fire({
@@ -201,7 +206,7 @@ const handleButtonClick = async () => {
 
                             <div class="buInfoRightCard">
                                 <div class="buInfoIcon">
-                                    <img src="/orderPageImage/Hangry.jpg">    
+                                    <img src="/buIconImage/${userData.imageIcon}">    
                                 </div>
                                 <br>
                                 <br>
@@ -237,7 +242,7 @@ const handleButtonClick = async () => {
                 if (result.isConfirmed) {
                     // console.log('提交的資料:', result.value.operationTime);
                     // 在這裡發送PUT請求更新數據
-                    axios.put('http://localhost:8080/pages/rest/businessUser/modify', {
+                    axios.put(`${import.meta.env.VITE_API_BASE}/pages/rest/businessUser/modify`, {
                         BuId: buId,
                         phone: result.value.phone,
                         operationTime: result.value.operationTime,
@@ -305,8 +310,8 @@ const currentTimeOne = '2024-01-31';//當前日期+1
 //7天前
 // const currentTimeWeeksAgo = formatDate(new Date(new Date().setDate(new Date().getDate() - 7)));//當前日期7天前
 // const currentTimeWeeksAgoOne = formatDate(new Date(new Date().setDate(new Date().getDate() - 6)));//當前日期7天前+1
-const currentTimeWeeksAgo = '2023-12-01';//當前日期7天前
-const currentTimeWeeksAgoOne = '2023-12-31';//當前日期7天前+1
+const currentTimeWeeksAgo = '2024-02-14';//當前日期7天前
+const currentTimeWeeksAgoOne = '2024-02-20';//當前日期7天前+1
 
 
 //抓出本日概況四個資訊的方法
@@ -318,7 +323,7 @@ const fetchData = async () => {
         startDate: currentTime,
         endDate: currentTimeOne
     }
-    const sumResponse = await axios.post("http://localhost:8080/pages/rest/orderform/findTodayTotalFromOrderForm", requestCurrentBody)
+    const sumResponse = await axios.post(`${import.meta.env.VITE_API_BASE}/pages/rest/orderform/findTodayTotalFromOrderForm`, requestCurrentBody)
     const nowRevenue = sumResponse.data;
 
     //取出當前時間七天前的訂單金額欄位。
@@ -327,22 +332,31 @@ const fetchData = async () => {
         startDate: currentTimeWeeksAgo,
         endDate: currentTimeWeeksAgoOne
     }
-    const sumWeeksAgoResponse = await axios.post("http://localhost:8080/pages/rest/orderform/findTodayTotalFromOrderForm", requestWeekBody)
+    const sumWeeksAgoResponse = await axios.post(`${import.meta.env.VITE_API_BASE}/pages/rest/orderform/findTodayTotalFromOrderForm`, requestWeekBody)
     const weeksAgoRevenue = sumWeeksAgoResponse.data;
 
     //取出訂單的付款欄位。
-    const statusResponse = await axios.post("http://localhost:8080/pages/rest/orderform/findTodayPSFromOrderForm", requestCurrentBody)
+    const statusResponse = await axios.post(`${import.meta.env.VITE_API_BASE}/pages/rest/orderform/findTodayPSFromOrderForm`, requestCurrentBody)
     const payStatus = statusResponse.data;
+
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE}/pages/rest/businessUser/findInformation/` + buId);
+
+    const userData = response.data;
+    // console.log(userData);
+    buIcon.value = userData.imageIcon
+    buJoinDate.value = userData.joinDate
+    buRate.value = userData.rate;
+
 
     //計算目前為止的訂單金額加總
     //JS的陣列計算，透過reduce方法可以計算出陣列內數值總和，後方的0數值位置的值會影響最後結果。
     // sum.value = data.reduce((acc, curr) => acc + curr, 0); -> accumulator,currentValue可以被簡寫
     sum.value = nowRevenue.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
     weeksAgoRate.value = weeksAgoRevenue.reduce((acc, curr) => acc + curr, 0);
 
     //將目前的營業額與上週同期營業額做運算，算出增長率
     //增長率公式
-
     const returnRate = Math.round(((sum.value - weeksAgoRate.value) / weeksAgoRate.value) * 100);
     weeksAgoRate.value = returnRate;
 
@@ -380,6 +394,10 @@ onMounted(fetchData);
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    text-align: center;
 }
 
 h2 {
@@ -573,5 +591,14 @@ h2 {
 /*控制本日概況文字動畫向左消失*/
 .container.active .toggle-right {
     transform: translateX(200%);
+}
+.buIconContainer img{
+    /* width: 140px;
+    height: 140px;
+    border-radius: 1rem; */
+    width: 150px;
+    height: 150px;
+    border: 1px solid;
+    border-radius: 50%;
 }
 </style>

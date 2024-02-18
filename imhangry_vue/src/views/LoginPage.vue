@@ -85,7 +85,7 @@ export default {
 
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8080/user/login',
+                        url: `${import.meta.env.VITE_API_BASE}/user/login`,
                         headers: { "Content-Type": "application/json", },
                         params: {
                             name: _this.ruleForm.uname,
@@ -186,15 +186,19 @@ const handleSubmit = async function (event) {
 
     const path = import.meta.env.VITE_API_GUESTUSERURL;
     const API_URL = `${path}/login`;
-
+    console.log("登入",API_URL);
     try {
         const response = await axios.post(API_URL, input, { withCredentials: true });
+        // const response = await axios.post(API_URL, input);
+
         const success = response.data.success;
         const message = response.data.message;
+        console.log(response.data);
 
         if (success) {
             await sleep(500);
             const userData = getCookieData("userData");
+            console.log(userData);
             const id = userData.id;
             console.log('id:', id);
 

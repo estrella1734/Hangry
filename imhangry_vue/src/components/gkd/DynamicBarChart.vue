@@ -201,7 +201,7 @@ export default {
                     endDate: this.fromDSVCEndDate
                 };
                 const responseCurrent = await axios.post(
-                    "http://localhost:8080/pages/rest/revenue/findByDates",
+                    `${import.meta.env.VITE_API_BASE}/pages/rest/revenue/findByDates`,
                     currentRequestBody
                 );
                 const currentData = responseCurrent.data;
@@ -224,7 +224,7 @@ export default {
                     endDate: this.fromDSVCWeeksAgoEndDate
                 };
                 const responseWeeksAgo = await axios.post(
-                    "http://localhost:8080/pages/rest/revenue/findByDates",
+                    `${import.meta.env.VITE_API_BASE}/pages/rest/revenue/findByDates`,
                     requestBodyWeeksAgo
                 );
                 const dataWeeksAgo = responseWeeksAgo.data;

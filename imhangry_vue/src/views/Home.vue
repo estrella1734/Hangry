@@ -20,29 +20,28 @@
                     <div id="buttonInfo">
                         <button id="customizeIcon">
                             <RouterLink :to="{ name: 'Pay' }">
-                                <img src="../../public/homeImage/credit-card.png">
+                                <img src="/homeImage/iconImage/credit-card.png">
                             </RouterLink>
                         </button>
-                        <span style="font-size: 20px; padding: 10px; color: #efefef; ">付款設定</span>
+                        <span>付款設定</span>
                     </div>
 
                     <div id="buttonInfo">
                         <button id="customizeIcon">
                             <RouterLink :to="{ name: 'LikesPage' }">
-                                <!-- 不要打開，要錢 -->
-                                <!-- <img src="../../public/homeImage/likes.png"> -->
+                                <img src="/homeImage/iconImage/likes.png">
                             </RouterLink>
                         </button>
-                        <span style="font-size: 20px; padding: 10px; color: #efefef; ">喜愛店家</span>
+                        <span>喜愛店家</span>
                     </div>
 
                     <div id="buttonInfo">
                         <button id="customizeIcon">
                             <RouterLink :to="{ name: 'CartPage' }">
-                                <img src="../../public/homeImage/shopping-cart.png">
+                                <img src="/homeImage/iconImage/shopping-cart.png">
                             </RouterLink>
                         </button>
-                        <span style="font-size: 20px; padding: 10px; color: #efefef; ">購物車
+                        <span>購物車
                         </span>
                     </div>
 
@@ -55,26 +54,26 @@
 
                         <button id="customizeIcon">
                             <RouterLink :to="{ name: 'Orders' }">
-                                <img src="../../public/homeImage/order.png">
+                                <img src="/homeImage/iconImage/order.png">
                             </RouterLink>
                         </button>
-                        <span style="font-size: 20px; padding: 10px; color: #efefef; ">訂單</span>
+                        <span>訂單</span>
                     </div>
 
                     <div id="buttonInfo">
                         <button id="customizeIcon">
                             <RouterLink :to="{ name: 'SearchPage' }">
-                                <img src="../../public/homeImage/search.png">
+                                <img src="/homeImage/iconImage/search.png">
                             </RouterLink>
                         </button>
-                        <span style="font-size: 20px; padding: 10px; color: #efefef; ">搜尋店家</span>
+                        <span>搜尋店家</span>
                     </div>
 
                     <div id="buttonInfo">
                         <button id="customizeIcon">
-                            <img src="../../public/homeImage/user.png">
+                            <img src="/homeImage/iconImage/user.png">
                         </button>
-                        <span style="font-size: 20px; padding: 10px; color: #efefef; ">個人設定</span>
+                        <span>個人設定</span>
                     </div>
 
                 </div>
@@ -94,11 +93,11 @@
                 <!-- Start Column 1 -->
                 <div class="col-md-12 col-lg-3 mb-5 mb-lg-0" id="cal1">
                     <h2 class="mb-4 section-title" style="color : white; ">告訴我，今天想來點什麼？</h2>
-                    <p class="mb-4">「訂餐不再煩惱，輕鬆點擊，美食隨手可得！」
+                    <p class="mb-4" style="color : white; ">「訂餐不再煩惱，輕鬆點擊，美食隨手可得！」
                         <br>
                         「滿足您的味蕾，輕鬆訂餐，快速送達！」
                     </p>
-                    <p><a href="shop.html" class="btn">這裡想做一個按鈕</a></p>
+
                 </div>
                 <!-- End Column 1 -->
 
@@ -106,7 +105,7 @@
                 <!-- Start Column 2 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                     <div id="cal2" class="shape-col">
-                        <img src="../../public/homeImage/drink.jpg">
+                        <img src="/homeImage/drink.jpg">
                     </div>
                 </div>
                 <!-- End Column 2 -->
@@ -114,7 +113,7 @@
                 <!-- Start Column 3 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                     <div id="cal2">
-                        <img src="../../public/homeImage/hamburger1.jpg">
+                        <img src="/homeImage/hamburger1.jpg">
                     </div>
                 </div>
                 <!-- End Column 3 -->
@@ -122,7 +121,7 @@
                 <!-- Start Column 4 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                     <div id="cal2">
-                        <img src="../../public/homeImage/roast.jpg">
+                        <img src="/homeImage/roast.jpg">
                     </div>
                 </div>
                 <!-- End Column 4 -->
@@ -139,13 +138,13 @@
         <!-- <div class="col" v-for="{ spotId, spotImage, spotTitle, spotDescription, address } in spots.list" :key="spotId"> -->
 
         <div class="col" v-for="(businessInfo, index) in businessInfos" :key="index">
-            <div class="card">
-                <img src="../../public/homeImage/hamburger1.jpg" class="card-img-top">
+            <div class="card" @click="gogogo(index)">
+                <img :src="'/buIndexImage/' + businessInfo.imageIndex" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">{{ businessInfo.name }}</h5>
                     <p class="card-text">{{ businessInfo.describe }}</p>
                     <div class="card-footer">
-                        <small class="text-body-secondary">{{businessInfo.address}}</small>
+                        <small class="text-body-secondary">{{ businessInfo.address }}</small>
                     </div>
                 </div>
             </div>
@@ -157,36 +156,40 @@
 
 
     <!-- Start Hero Section -->
-    <div class="hero">
+    <!-- <div class="hero">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-lg-5">
                     <div class="intro-excerpt">
-                        <h1>為什麼選擇我們：<span class="d-block">最好的平台</span></h1>
-                        <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
-                            vulputate velit imperdiet dolor tempor tristique.</p>
-                        <p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#"
-                                class="btn btn-white-outline">Explore</a></p>
+                        <h1 style="color: aliceblue;">為什麼選擇我們：<span class="d-block">最好的平台</span></h1>
+                        <p class="mb-4" style="color: aliceblue;">給您最方便快捷的訂餐體驗！多元菜單、每日特惠，專業配送團隊，保障食物新鮮送達。安全付款系統，24小時客服支持，讓您輕鬆享受美食！</p>
+                        <p><a href="" class="btn btn-secondary me-2">現在訂餐</a><a href="#"
+                                class="btn btn-white-outline">瀏覽</a></p>
                     </div>
                 </div>
                 <div class="col-lg-7">
                     <div class="hero-img-wrap">
-                        <img src="../../public/homeImage/hamburger.jpg" class="img-fluid">
+                        <img src="/homeImage/hamburger.jpg" class="img-fluid">
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Hero Section -->
 </template>
 
 
 
 <script setup>
-import { onMounted, reactive, ref } from 'vue';
 import axios from 'axios';
+import { onMounted, reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const businessInfos = reactive({});
-
+function gogogo(index){
+    index++;
+    router.push({ name: 'OrderPage', params: { id: index } })
+}
 
 const URL = `${import.meta.env.VITE_API_BASE}`
 
@@ -199,10 +202,9 @@ const user = ref({
 const currentImage = 0;
 
 const imageList = [
-    "../../public/homeImage/eating.jpg",
-    "../../public/homeImage/orderphone.jpg",
-    "../../public/homeImage/crispy.jpg",
-    "../../public/homeImage/coffee.jpg",
+    "/homeImage/coffee.jpg",
+    "/homeImage/salmon.jpg",
+    "/homeImage/drink2.png",
     // 其他圖片的路徑
 ]
 
@@ -217,14 +219,14 @@ onMounted(async () => {
     if (sessionStorage.getItem('userInfo')) {
         user.value = JSON.parse(sessionStorage.getItem('userInfo'));
     }
-
+    console.log("首頁", URL + '/pages/rest/businessUser/findAllBusiness');
     try {
         const response = await axios.get(URL + '/pages/rest/businessUser/findAllBusiness');
 
         console.log(response.data);
         if (response.data) { // 檢查response.data是否有效
             Object.assign(businessInfos, response.data); // 將API返回的數據賦值給businessInfo
-            console.log('businessInfos', businessInfos);
+            // console.log('businessInfos', businessInfos);
         } else {
             console.error('Error fetching data: Response data is empty');
         }
@@ -240,7 +242,6 @@ onMounted(async () => {
 
 
 <style scoped>
-
 body {
     background-image: linear-gradient(to top, #fcf9fa 79.9%, #435C51 20.1%) !important;
 }
@@ -363,6 +364,12 @@ body {
     align-items: center;
 }
 
+span {
+    font-size: 20px;
+    padding-top: 10px;
+    color: #efefef;
+}
+
 #customizeIcon {
     padding-block: 0px;
     padding-inline: 0px;
@@ -390,7 +397,7 @@ body {
     margin-top: 30px;
     margin-bottom: 30px;
     border-radius: 2rem;
-    
+
     /* 半透明白色背景 */
     background: rgba(255, 255, 255, 0.1);
     /* 模糊效果 */

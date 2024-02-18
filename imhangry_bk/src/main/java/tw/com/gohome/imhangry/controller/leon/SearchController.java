@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,9 +16,6 @@ import tw.com.gohome.imhangry.domain.BusinessUser;
 import tw.com.gohome.imhangry.domain.dto.BrandResultDTO;
 import tw.com.gohome.imhangry.repository.BrandRepository;
 import tw.com.gohome.imhangry.repository.BusinessUserRepository;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/")

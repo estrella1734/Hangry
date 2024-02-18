@@ -3,15 +3,14 @@
         <br>
         <h2>優惠券列表</h2>
         <div class="container">
-            <a href="javascript: void(0)" class="btn" onclick="location.href='http://localhost:5173/PlatformCouponUpload'">
+            <a href="javascript: void(0)" class="btn" onclick="location.href='/PlatformCouponUpload'">
                 <span>新增優惠</span>
                 <svg width="13px" height="10px" viewBox="0 0 13 10">
                     <path d="M1,5 L11,5"></path>
                     <polyline points="8 1 12 5 8 9"></polyline>
                 </svg>
             </a>
-            <a href="javascript: void(0)" class="btn"
-                onclick="location.href='http://localhost:5173/PlatformCouponUploadFile'">
+            <a href="javascript: void(0)" class="btn" onclick="location.href='/PlatformCouponUploadFile'">
                 <span>新增優惠(檔案上傳)</span>
                 <svg width="13px" height="10px" viewBox="0 0 13 10">
                     <path d="M1,5 L11,5"></path>

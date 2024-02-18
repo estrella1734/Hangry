@@ -1,5 +1,11 @@
 <template>
     <div id="app">
+
+        <div class="image-container">
+            <RouterLink :to="{ name: 'Home' }" class="navbar-brand" active-class="nav-link-active"><img src="/logo.png"
+                    alt="圖片描述"></RouterLink>
+        </div>
+
         <NavBar class="navBar"></NavBar>
         <br>
         <br>
@@ -16,11 +22,12 @@
 </template>
 
 <script setup>
+import Footer from './views/Footer.vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { onMounted, onUnmounted } from 'vue';
 import NavBar from './views/NavBar.vue';
-import Footer from './views/Footer.vue'
+
 
 //背景與滾動
 const handleScroll = () => {
@@ -44,6 +51,20 @@ body {
     background-color: #435C51;
 }
 
+.image-container img {
+    position: fixed;
+    /* 使圖片容器固定位置 */
+    width: 4.2%;
+    /* height:15%; */
+    /* border-radius: 50%; */
+    z-index: 1000;
+    top: 5px;
+    /* 調整圖片容器距離頂部的距離 */
+    left: 9%;
+    /* 調整圖片容器距離左邊的距離 */
+    border-radius: 1rem;
+}
+
 .navbar {
     position: fixed;
     /* 將 Navbar 固定在頁面上方 */
@@ -53,7 +74,7 @@ body {
     /* 如果需要，也可以設置 left 屬性 */
     width: 100%;
     /* 讓 Navbar 佔滿整個頁面的寬度 */
-    z-index: 1000;
+    z-index: 999;
     /* 設置 z-index 以確保 Navbar 在其他元素之上 */
     /* 其他樣式設定 */
 }
@@ -69,7 +90,7 @@ body {
 }
 
 .parallax {
-    background-image: url('public/homeImage/background.png');
+    background-image: url('/homeImage/background.png');
     background-size: auto 100%;
     width: 100vw;
     height: 150vh;

@@ -3,7 +3,7 @@
         <br>
         <h2>專屬優惠券</h2>
         <div class="container">
-            <a href="javascript: void(0)" class="btn" onclick="location.href='http://localhost:5173/GuCouponList'">
+            <a href="javascript: void(0)" class="btn" onclick="location.href='/GuCouponList'">
                 <span>領取優惠券</span>
                 <svg width="13px" height="10px" viewBox="0 0 13 10">
                     <path d="M1,5 L11,5"></path>

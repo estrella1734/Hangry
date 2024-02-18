@@ -274,4 +274,15 @@ public class GuestUserService {
         return false;
     }
 
+    // Find memberId By memberAccount
+    public Integer getGuestUserIdByEmail(String email) {
+        List<GuestUser> optionalMember = guestUserRepository.findByEmail(email);
+        if (!optionalMember.isEmpty()) {
+            GuestUser guestUser = optionalMember.get(0);
+            return guestUser.getId();
+        } else {
+            return null;
+        }
+    }
+
 }

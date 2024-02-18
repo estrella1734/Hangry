@@ -50,8 +50,8 @@ function goCartPage(){
 :not(.btn-check)+.btn:active,
 .btn{
     color: var(--bs-btn-active-color);
-    background-color: #ff5e7d;
-    border-color: #ff5e7d;
+    background-color: #F9BF29;
+    border-color: #F9BF29;
     
 }
 

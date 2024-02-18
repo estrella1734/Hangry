@@ -58,22 +58,22 @@ interface typeItem {
 
 const state = ref('')
 const state1 = ref('')
-const brand = ref<brandItem[]>([])
-const type = ref<typeItem[]>([])
+let brand = reactive<brandItem[]>([])
+let type = reactive<typeItem[]>([])
 const searchResult = reactive({})
 
 const querySearchBrand = (queryString: string, cb) => {
     const results = queryString
-        ? brand.value.filter(createFilter(queryString))
-        : brand.value
+        ? brand.filter(createFilter(queryString))
+        : brand
     // call callback function to return suggestion objects
     cb(results)
 }
 
 const querySearchType = (queryString: string, cb) => {
     const results = queryString
-        ? type.value.filter(createFilter(queryString))
-        : type.value
+        ? type.filter(createFilter(queryString))
+        : type
     // call callback function to return suggestion objects
     cb(results)
 }
@@ -87,11 +87,11 @@ const createFilter = (queryString) => {
     }
 }
 const loadAllBrand = async () => {
-    const response = await axios.get('http://localhost:8080/findBusinessBrand')
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE}/findBusinessBrand`)
     return response.data.list
 }
 const loadAllType = async () => {
-    const response = await axios.get('http://localhost:8080/findBusinessType')
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE}/findBusinessType`)
     return response.data.list
 
 
@@ -100,23 +100,22 @@ const emit = defineEmits(["updateEvent"])
 
 
 const handleBrandSelect = async (item: brandItem) => {
-    const response = await axios.get('http://localhost:8080/SearchBrand/' + item.Value)
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE}/SearchBrand/` + item.Value)
     Object.assign(searchResult, response.data)
     const returnResult = () => {
         emit("updateEvent", searchResult)
     }
     returnResult();
-    console.log(searchResult)
 }
 const handleTypeSelect = async (item: typeItem) => {
-    const response = await axios.get('http://localhost:8080/SearchType/' + item.Value)
+    const response = await axios.get(`${import.meta.env.VITE_API_BASE}/SearchType/` + item.Value)
     Object.assign(searchResult, response.data)
     const returnResult = () => {
         emit("updateEvent", searchResult)
     }
 
     returnResult();
-    console.log(searchResult)
+    // console.log(searchResult)
 }
 
 
@@ -127,8 +126,10 @@ const handleIconClick = (ev: Event) => {
 }
 
 onMounted(async () => {
-    brand.value = await loadAllBrand();
-    type.value = await loadAllType();
+    brand = await loadAllBrand();
+    type = await loadAllType();
+    console.log(brand)
+    console.log(type)
 
 })
 

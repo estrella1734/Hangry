@@ -107,7 +107,7 @@ function openDialog(productId: number, categoryId: number, productPrice: number,
 <style scoped>
 .msg {
     border-radius: 0.7rem;
-    background-color: #F9BF29;
+    background-color: #33808B;
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -237,7 +237,7 @@ function openDialog(productId: number, categoryId: number, productPrice: number,
     border: 0px;
 }
 
-.avatar {}
+
 
 .info .right {
     background-color: aquamarine;

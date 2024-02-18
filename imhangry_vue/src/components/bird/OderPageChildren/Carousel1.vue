@@ -3,7 +3,7 @@
     
       <el-carousel height="360px" arrow="never" :autoplay="false" indicator-position="none">
         <el-carousel-item v-for="item in 4" :key="item">
-          <img src="../../../../orderPageImage/HangryBanner.png" alt="">
+          <img src="/orderPageImage/HangryBanner.png" alt="">
         </el-carousel-item>
       </el-carousel>
     </div>

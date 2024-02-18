@@ -298,7 +298,7 @@ function addProduct(parent) {
         state.cart.category = data.categoryId
         state.cart.image = data.image
 
-
+        state.cart.userId = orderPageStore.guestUserId
 
         
 
@@ -372,8 +372,8 @@ function handleCustomizes(customId: number) {
 .btn-primary {
 
     color: var(--bs-btn-active-color);
-    background-color: #ff5e7d;
-    border-color: #ff5e7d;
+    background-color: #F9BF29;
+    border-color: #F9BF29;
 }
 
 .footer-price {
@@ -389,8 +389,8 @@ function handleCustomizes(customId: number) {
 }
 
 .btn:not(.btn-submit):hover{
-    border-color: #ff5e7d;
-    color:#ff5e7d;
+    border-color: #F9BF29;
+    color:#F9BF29;
 } 
 
 .btn-check:checked+.btn,
@@ -399,13 +399,13 @@ function handleCustomizes(customId: number) {
 .btn:first-child:active,
 :not(.btn-check)+.btn:active{
     color: var(--bs-btn-active-color);
-    background-color: #ff5e7d;
-    border-color: #ff5e7d;
+    background-color: #F9BF29;
+    border-color: #F9BF29;
 }
 
 .btn-outline-primary {
-    border: 1px solid #ff5e7d;
-    color: #ff5e7d;
+    border: 1px solid #33808B;
+    color: #33808B;
 }
 
 

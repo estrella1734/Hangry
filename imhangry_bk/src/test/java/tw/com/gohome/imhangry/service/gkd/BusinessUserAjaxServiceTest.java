@@ -1,6 +1,5 @@
 package tw.com.gohome.imhangry.service.gkd;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.json.JSONObject;

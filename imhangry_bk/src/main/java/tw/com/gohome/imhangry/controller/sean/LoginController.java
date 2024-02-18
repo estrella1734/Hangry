@@ -31,7 +31,7 @@ public class LoginController {
     private GuestUserService guestUserService;
 
     // 修改會員資料
-    @CrossOrigin(origins = { "http://localhost:5173" }, allowCredentials = "true")
+    @CrossOrigin
     @PutMapping("/updateInfo/{id}")
     public String updateMemberInfo(@PathVariable Integer id, @RequestBody String json) {
         JSONObject responseJson = new JSONObject(json);
@@ -56,10 +56,13 @@ public class LoginController {
     }
 
     // 會員登入
-    @CrossOrigin(origins = { "http://localhost:5173" }, allowCredentials = "true")
+    @CrossOrigin
     @PostMapping("/login")
     public String guestUserLogin(@RequestBody String json, HttpSession session,
             HttpServletResponse response) {
+
+  
+
         JSONObject responseJson = new JSONObject();
         // 接收使用者輸入資料
         JSONObject obj = new JSONObject(json);
@@ -91,6 +94,9 @@ public class LoginController {
             JSONObject guestUserData = new JSONObject();
             guestUserData.put("id", bean.getId());
             guestUserData.put("email", bean.getEmail());
+            guestUserData.put("name", bean.getName());
+            guestUserData.put("phone", bean.getPhone());
+
             System.err.println("111111111" + email + " " + password);
             // 序列化成JSON格式
             String jsonData = guestUserData.toString();
@@ -181,7 +187,7 @@ public class LoginController {
     }
 
     // 修改圖片
-    @CrossOrigin(origins = { "http://localhost:5173" }, allowCredentials = "true")
+    @CrossOrigin
     @PutMapping("/updateHeadShot/{id}")
     public ResponseEntity<String> updateHeadShot(@PathVariable Integer id,
             @RequestParam("avatar") MultipartFile avater) {

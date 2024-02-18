@@ -1,12 +1,12 @@
 <template>
     <SearchComponent @updateEvent="updateEvent"></SearchComponent>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top:10px ; ">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mouse" style="margin-top:10px ; ">
         <div class="col" v-for="{ address, businessUserName, icon, id, rate, openTime, index } in searchResult">
 
             <div class="card h-100" style="border: none; text-align: center;" @click="toOrderPage(id)">
 
-                <img src="../../../orderPageImage/Hangry.jpg" class="card-img" alt=" " style="width: 100%; margin: auto;">
+                <img src="/orderPageImage/Hangry.jpg" class="card-img" alt=" " style="width: 100%; margin: auto;">
                 <LikeComponent style="position: absolute; top: 0; right: 0;" class="fonticon" :fk_business_id="id">
                 </LikeComponent>
                 <div class="card-body">
@@ -16,13 +16,12 @@
 
                     <div class="spdiv">
                         <span class="spaninfo">{{ openTime }}</span>
-                        <span class="spaninfo">約 {{ distanceArray[index] }} km</span>
+                        <span class="spaninfo" v-if="position">約 {{ distanceArray[index] }} km</span>
                         <span class="spaninfo"><font-awesome-icon :icon="['fas', 'star']" style="color: #FFD43B;" /> {{
                             rate }}</span>
                     </div>
                     <p>{{ address }}</p>
                 </div>
-
 
 
             </div>
@@ -33,19 +32,23 @@
 <script  setup>
 import SearchComponent from '@/components/leon/SearchComponent.vue';
 import LikeComponent from '@/components/leon/LikeComponent.vue';
+import { getLocation } from './GetGeolocation';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { get } from 'vue-cookies'
 import axios from 'axios';
 
-const lat = ref(get('lat'));
-const lon = ref(get('lon'));
+const lat = ref(window.sessionStorage.getItem("lat"));
+const lon = ref(window.sessionStorage.getItem("lon"));
 const latlonResponse = reactive([{}])
-
 const distanceArray = reactive([])
 const distance = ref();
 const searchResult = ref([]);
 const route = useRouter();
+const position = ref(true)
+window.onload = getLocation().then(bool => position.value = bool).catch(bool => position.value = bool);
+
+
 
 function toOrderPage(id) {
     route.push({ name: 'OrderPage', params: { id: id } })
@@ -86,15 +89,11 @@ function calDistance(localLan, localLon, busLan, busLon) {
 }
 
 
-
-
 function updateEvent(result) {
     searchResult.value = result.list;
     // console.log(searchResult.value[0]);
     // console.log("aabbcc = ", searchResult.value)
     startConvert()
-
-
 }
 
 
@@ -121,6 +120,10 @@ function updateEvent(result) {
 
 
 <style scoped>
+.mouse {
+    cursor: pointer;
+}
+
 .spdiv {
     display: flex;
     justify-content: center;

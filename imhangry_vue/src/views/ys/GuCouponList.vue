@@ -11,7 +11,7 @@
                     <polyline points="8 1 12 5 8 9"></polyline>
                 </svg>
             </a>
-            <a href="javascript: void(0)" class="btn" onclick="location.href='http://localhost:5173/GuCoupon'">
+            <a href="javascript: void(0)" class="btn" onclick="location.href='/GuCoupon'">
                 <span>返回優惠券</span>
                 <svg width="13px" height="10px" viewBox="0 0 13 10">
                     <path d="M1,5 L11,5"></path>

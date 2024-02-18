@@ -142,18 +142,36 @@ export const useOrderPageStore = defineStore('orderPage',()=>{
             
         
     }
-    function isInclude(obj:Object,arr:Array):boolean{
-        for (let i = 0; i < arr.length; i++) {
-            if(arr[i].productName === obj.productName && arr[i].productPrice === obj.productPrice){
-                if(arr[i].customizes.toString() === obj.customizes.toString()){
-                    cartList[i].amount += obj.amount
-                    cartList[i].totalPrice += obj.totalPrice
-                    return true;
+    function isInclude(obj:Object,arr:Array,index = -1):boolean{
+        if(index != -1){
+            for (let i = 0; i < arr.length; i++) {
+                if(i == index){
+                    continue;
                 }
+                if(arr[i].productName === obj.productName && arr[i].productPrice === obj.productPrice){
+                    if(arr[i].customizes.toString() === obj.customizes.toString()){
+                        cartList[i].amount += obj.amount
+                        cartList[i].totalPrice += obj.totalPrice
+                        return true;
+                    }
+                }
+            
             }
-        
+            return false
+        }else{
+            for (let i = 0; i < arr.length; i++) {
+                if(arr[i].productName === obj.productName && arr[i].productPrice === obj.productPrice){
+                    if(arr[i].customizes.toString() === obj.customizes.toString()){
+                        cartList[i].amount += obj.amount
+                        cartList[i].totalPrice += obj.totalPrice
+                        return true;
+                    }
+                }
+            
+            }
+            return false
         }
-        return false
+
     }
         
     const cartList = reactive(
@@ -179,10 +197,20 @@ export const useOrderPageStore = defineStore('orderPage',()=>{
 
     function spliceCartList(index:number){
         let obj = JSON.parse(JSON.stringify(cart))
-        cartList.splice(index,1,obj) 
+        const tempArr = JSON.parse(localStorage.getItem('cartList'))
+
+        
+        if(isInclude(obj,tempArr,index)){
+            
+            cartList.splice(index, 1)
+            localStorage.setItem('cartList', JSON.stringify(cartList))
+        }else{
+            
+            cartList.splice(index,1,obj) 
+        }
     }
 
-    async function getCouponList(userId:number = 1) {
+    async function getCouponList(userId:number = 12) {
         try {
             const {data} = await axios.get(`${import.meta.env.VITE_API_BASE}/orderPage/coupon/${userId}`)
             

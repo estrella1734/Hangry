@@ -2,6 +2,8 @@
     <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
         <div class="container">
 
+            
+
             <RouterLink :to="{ name: 'Home' }" class="navbar-brand" active-class="nav-link-active">Hangry<span>, Time to
                     Walk the Food Walk</span></RouterLink>
 
@@ -26,11 +28,10 @@
                         </RouterLink>
                     </li>
 
-                    <!-- <li>
-                        不要打開，要錢
+                    <li>
                         <RouterLink :to="{ name: 'SearchPage' }" class="nav-link" active-class="nav-link-active">搜尋店家
                         </RouterLink>
-                    </li> -->
+                    </li>
 
                     <li>
                         <RouterLink :to="{ name: 'OrderPage' }" class="nav-link" active-class="nav-link-active">點餐
@@ -85,9 +86,8 @@
                             </li>
 
                             <li>
-                                <RouterLink :to="{ name: 'OrderManager' }" class="nav-link"
-                                    active-class="nav-link-active">
-                                    訂單管理
+                                <RouterLink :to="{ name: 'OrderManager' }" class="nav-link" active-class="nav-link-active">
+                                    訂單檢視
                                 </RouterLink>
                             </li>
 

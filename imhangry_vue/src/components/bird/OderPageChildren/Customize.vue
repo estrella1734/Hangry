@@ -243,6 +243,7 @@ const data = reactive({
 
 function addProduct() {
     //登入驗證
+    
     if(!orderPageStore.getcookie()){
         orderPageStore.$patch((state: any) => {
             //關閉視窗
@@ -257,7 +258,6 @@ function addProduct() {
             router.push({ name: 'UserLogin' })
         });
     }else{
-
         
         //驗證選項
         if(validateCustomizes()){
@@ -285,11 +285,7 @@ function addProduct() {
             state.cart.category = data.categoryId
             state.cart.image = data.image
             state.cart.userId = orderPageStore.guestUserId
-    
-    
-    
-            
-    
+
             state.cart.businessUserId = data.businessUserId
     
         })
@@ -299,10 +295,10 @@ function addProduct() {
         setTimeout(() => {
             orderPageStore.count++
         }, 100);
-    }
-
+}
 
 }
+
 function validateCustomizes():boolean{
 
     return data.op0 == 0 || data.op1 ==0 ? true : false
@@ -356,8 +352,8 @@ function handleCustomizes(customId: number) {
 .btn-primary {
 
     color: var(--bs-btn-active-color);
-    background-color: #ff5e7d;
-    border-color: #ff5e7d;
+    background-color: #F9BF29;
+    border-color: #F9BF29;
 }
 
 .footer-price {
@@ -373,8 +369,8 @@ function handleCustomizes(customId: number) {
 }
 
 .btn:not(.btn-submit):hover{
-    border-color: #ff5e7d;
-    color:#ff5e7d;
+    border-color: #F9BF29;
+    color:#F9BF29;
 } 
 
 .btn-check:checked+.btn,
@@ -383,13 +379,13 @@ function handleCustomizes(customId: number) {
 .btn:first-child:active,
 :not(.btn-check)+.btn:active{
     color: var(--bs-btn-active-color);
-    background-color: #ff5e7d;
-    border-color: #ff5e7d;
+    background-color: #F9BF29;
+    border-color: #F9BF29;
 }
 
 .btn-outline-primary {
-    border: 1px solid #ff5e7d;
-    color: #ff5e7d;
+    border: 1px solid #33808B;
+    color: #33808B;
 }
 
 
@@ -404,7 +400,7 @@ function handleCustomizes(customId: number) {
     height: 50px;
 }
 .meanness :deep(.el-dialog__title){
-    color: #fa4438;
+    color: #F9BF29;
     font-size: 24px;
     padding: 8px 16px;
     font-weight: 900;
